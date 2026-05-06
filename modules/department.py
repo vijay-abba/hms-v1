@@ -2,6 +2,7 @@ from mysql.connector import Error, IntegrityError
 from db_config import DBConnection
 from exceptions.custom_exceptions import DuplicateRecordError, DatabaseConnectionError
 from rich.console import Console
+from rich.table import Table
 
 console = Console()
 
@@ -21,7 +22,10 @@ class Department:
             cursor.execute(query, (department_name, department_code))
             conn.commit()
             new_id = cursor.lastrowid
-            console.print(f"[OK], Department added successfully. ID = {new_id}", style="bold green")
+            console.print(
+                f"[OK], Department added successfully. ID = {new_id}",
+                style="bold green",
+            )
             return new_id
         except IndentationError as e:
             conn.rollback()
@@ -35,7 +39,15 @@ class Department:
             DBConnection.close(conn, cursor)
 
     def get_all(self):
-        pass
+        conn = DBConnection.get_connection()
+        cursor = conn.cursor(dictionary=True)
+        try:
+            cursor.execute("SELECT * FROM departments")
+            return cursor.fetchall()
+        except Error as e:
+            raise DatabaseConnectionError(f"Failed to fetch departements data: {e}")
+        finally:
+            DBConnection.close(conn, cursor)
 
     def get_by_id(self):
         pass

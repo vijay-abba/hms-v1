@@ -1,6 +1,7 @@
 from exceptions.custom_exceptions import HMSBaseExpection
 from modules.department import Department
 from rich.console import Console
+from tabulate import tabulate
 
 console = Console()
 
@@ -42,7 +43,8 @@ def department_menu():
             safe_run(_add)
 
         elif dep_choice == "2":
-            print("view all")
+            rows = safe_run(dept.get_all)
+            print(tabulate(rows, headers="keys", tablefmt="github"))
         elif dep_choice == "3":
             print("Get dep by id")
         elif dep_choice == "4":

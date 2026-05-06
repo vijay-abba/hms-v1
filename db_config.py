@@ -9,7 +9,7 @@ DB_CONFIG = {
     "host": "localhost",
     "user": "root",
     "password": "vijay@123",
-    "database": "hmss",
+    "database": "hms",
 }
 
 
