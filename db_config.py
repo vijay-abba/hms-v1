@@ -9,7 +9,7 @@ DB_CONFIG = {
     "host": "localhost",
     "user": "root",
     "password": "vijay@123",
-    "database": "hms",
+    "database": "hmss",
 }
 
 
@@ -26,16 +26,16 @@ class DBConnection:
                 "Connection Object is created but not connected"
             )
         except Error as e:
-            raise DatabaseConnectionError("MySQL error: {e}")
+            raise DatabaseConnectionError(f"MySQL error: {e}")
 
     @staticmethod
     def close(conn, cursor=None):
         if cursor:
             cursor.close()
-            console.print("Connection closed for cursor", style="bold yellow")
+            console.print("Connection closed for cursor", style="bold orange1")
         if conn and conn.is_connected():
             conn.close()
-            console.print("Connection closed for conn", style="bold yellow")
+            console.print("Connection closed for conn", style="bold orange1")
 
 # conn = DBConnection.get_connection()
 # print(conn)

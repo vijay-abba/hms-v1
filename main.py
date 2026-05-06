@@ -1,9 +1,24 @@
+from exceptions.custom_exceptions import HMSBaseExpection
+from modules.department import Department
 from rich.console import Console
 
 console = Console()
 
+
+def safe_run(func, *args, **kwargs):
+    try:
+        return func(*args, **kwargs)
+    except HMSBaseExpection as e:
+        console.print(f"[ERROR] {e.message}", style="bold red")
+    except KeyboardInterrupt:
+        console.print("\n[Info] Operation cancelled by user.\n", style="bold red")
+    except Exception as e:
+        console.print(f"\n [UNEXPECTED ERROR] {e}\n", style="bold red")
+
+
 def department_menu():
 
+    dept = Department()
     while True:
         console.print("\n ---- Department Management ----", style="bold blue")
         print("1. Add Department")
@@ -13,10 +28,19 @@ def department_menu():
         print("5. Delete Department")
         print("0. Back")
 
-        dep_choice = console.input("[bold yellow] Enter choice: ", ).strip()
+        dep_choice = console.input(
+            "[bold yellow] Enter choice: ",
+        ).strip()
 
         if dep_choice == "1":
-            print("Add department")
+
+            def _add():
+                department_name = console.input("[bold yellow]Enter Department name: ")
+                department_code = console.input("[bold yellow]Enter Department code: ")
+                dept.add(department_name, department_code)
+
+            safe_run(_add)
+
         elif dep_choice == "2":
             print("view all")
         elif dep_choice == "3":
@@ -41,7 +65,9 @@ def patient_menu():
         print("5. Delete Patient")
         print("0. Back")
 
-        patient_choice = console.input("[bold yellow] Enter choice: ", ).strip()
+        patient_choice = console.input(
+            "[bold yellow] Enter choice: ",
+        ).strip()
 
         if patient_choice == "1":
             print("adding")
@@ -70,7 +96,9 @@ def doctor_menu():
         print("5. Delete Doctor")
         print("0. Back")
 
-        doctor_choice = console.input("[bold yellow] Enter choice: ", ).strip()
+        doctor_choice = console.input(
+            "[bold yellow] Enter choice: ",
+        ).strip()
 
         if doctor_choice == "1":
             print("adding")
@@ -100,7 +128,9 @@ def appointment_menu():
         print("6. Cancel Appointment")
         print("0. Back")
 
-        app_choice = console.input("[bold yellow] Enter choice: ", ).strip()
+        app_choice = console.input(
+            "[bold yellow] Enter choice: ",
+        ).strip()
 
         if app_choice == "1":
             print("adding")
@@ -131,7 +161,9 @@ def treatment_menu():
         print("5. Delete Treatment")
         print("0. Back")
 
-        treatment_choice = console.input("[bold yellow] Enter choice: ", ).strip()
+        treatment_choice = console.input(
+            "[bold yellow] Enter choice: ",
+        ).strip()
 
         if treatment_choice == "1":
             print("adding")
@@ -161,7 +193,9 @@ def billing_menu():
         print("6. Delete Bill")
         print("0. Back")
 
-        bill_choice = console.input("[bold yellow] Enter choice: ", ).strip()
+        bill_choice = console.input(
+            "[bold yellow] Enter choice: ",
+        ).strip()
 
         if bill_choice == "1":
             print("adding")
@@ -193,7 +227,9 @@ def dashboard_menu():
         print("6. Most common Treatments")
         print("0. Back")
 
-        dep_choice = console.input("[bold yellow] Enter choice: ", ).strip()
+        dep_choice = console.input(
+            "[bold yellow] Enter choice: ",
+        ).strip()
 
         if dep_choice == "1":
             print("Summary Numbers")
@@ -217,7 +253,9 @@ def main_menu():
 
     while True:
         console.print("=" * 45, style="bold blue", height=100)
-        console.print(" HOSPITAL MANAGEMENT SYSTEM (HMS)", style="bold blue", height=100)
+        console.print(
+            " HOSPITAL MANAGEMENT SYSTEM (HMS)", style="bold blue", height=100
+        )
         console.print("=" * 45, style="bold blue", height=100)
 
         print("1. Department Management")
@@ -228,7 +266,9 @@ def main_menu():
         print("6. Billing Management")
         print("7. Dashboard")
         print("0. Exit")
-        user_choice = console.input("[bold yellow] Enter choice: ", ).strip()
+        user_choice = console.input(
+            "[bold yellow] Enter choice: ",
+        ).strip()
 
         if user_choice == "1":
             department_menu()
