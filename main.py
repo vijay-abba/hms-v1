@@ -45,8 +45,11 @@ def department_menu():
         elif dep_choice == "2":
             rows = safe_run(dept.get_all)
             print(tabulate(rows, headers="keys", tablefmt="github"))
+
         elif dep_choice == "3":
-            print("Get dep by id")
+            department_id = console.input("[bold yellow]department_id: ")
+            item = safe_run(dept.get_by_id,department_id)
+            print(item)
         elif dep_choice == "4":
             print("update department")
         elif dep_choice == "5":

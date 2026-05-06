@@ -49,11 +49,21 @@ class Department:
         finally:
             DBConnection.close(conn, cursor)
 
-    def get_by_id(self):
-        pass
+    def get_by_id(self, department_id):
+        conn = DBConnection.get_connection()
+        cursor = conn.cursor(dictionary=True)
+        try:
+            query = "SELECT * FROM departments WHERE department_id = %s"
+            cursor.execute(query, (department_id,))
+            return cursor.fetchone()
+        except Error as e:
+            raise DatabaseConnectionError(f"Failed to fetch departments data: {e}")
+        finally:
+            DBConnection.close(conn, cursor)
 
     def update(self):
-        pass
+        conn = DBConnection.get_connection()
+        cursor = conn.cursor()
 
     def delete(self):
         pass
