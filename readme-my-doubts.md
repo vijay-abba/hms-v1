@@ -43,3 +43,11 @@ try {
 General exception is only in safe_run why we don't have in other try expect blocks 
 except Exception as e:
 
+
+
+--- 
+
+6. 
+can we create a wrapper function in module file lien in department.py file 
+becasue soem blocks are simialar or it is unnessary and complicated ? 
+
