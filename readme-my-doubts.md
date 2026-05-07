@@ -16,20 +16,20 @@ class HMSBaseExpection(Exception):
 class DatabaseConnectionError(Exception):
 class DuplicateRecordError(Exception):
 
-similar answer:
+answer found but not sure:
 because we want a handle in one plase we use multilevel
 HMSBaseExpection in safe_run
 
 ---
 
 
-3. 
+1. 
 DBConnection close 
 don't we need try and catch blocks while closing 
 
 
 4. 
-in department 
+in department we can do so it iwll catch or it (currently it is catching in db_confing ? without None )
 cursor = None
 conn = None
 and inside try 
