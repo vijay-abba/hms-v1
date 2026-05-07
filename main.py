@@ -48,12 +48,20 @@ def department_menu():
 
         elif dep_choice == "3":
             department_id = console.input("[bold yellow]department_id: ")
-            item = safe_run(dept.get_by_id,department_id)
-            print(item)
+            item = safe_run(dept.get_by_id, department_id)
+            print(tabulate(item.items(), headers=["property name", "value name"], tablefmt="github"))
         elif dep_choice == "4":
-            print("update department")
+            def _update():
+                dpt_id = console.input("[bold yellow]department_id: ")
+                dpt_name = console.input("[bold yellow]Enter Department name: ")
+                dpt_code = console.input("[bold yellow]Enter Department code: ")
+                dept.update(department_id=dpt_id, department_name=dpt_name, department_code=dpt_code)
+            safe_run(_update)
         elif dep_choice == "5":
-            print("delete department")
+            def _delete():
+                dpt_id = console.input("[bold yellow]department_id: ")
+                dept.delete(department_id=dpt_id)
+            safe_run(_delete)
         elif dep_choice == "0":
             break
         else:

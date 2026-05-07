@@ -12,3 +12,4 @@ class DatabaseConnectionError(HMSBaseExpection):
 class DuplicateRecordError(DatabaseConnectionError):
     def __init__(self, entity, field, value):
         message = f"{entity} with {field} = {value} already exist"
+        super().__init__(message)

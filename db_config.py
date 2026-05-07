@@ -40,3 +40,21 @@ class DBConnection:
 # conn = DBConnection.get_connection()
 # print(conn)
 # DBConnection.close(conn)
+
+
+
+"""
+try:
+    cursor.close()
+    console.print("Connection closed for cursor", style="bold orange1")
+except Error as e:
+    console.print(f"Warning: Error closing cursor: {e}", style="bold yellow")
+if conn:
+    try:
+        if conn.is_connected():
+            conn.close()
+            console.print("Connection closed for conn", style="bold orange1")
+    except Error as e:
+        console.print(f"Warning: Error closing connection: {e}", style="bold yellow")
+
+"""
