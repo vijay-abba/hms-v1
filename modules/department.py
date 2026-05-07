@@ -107,4 +107,4 @@ class Department:
             raise DatabaseConnectionError(f"Failed to delete department {e}")
         finally:
             DBConnection.close(conn, cursor)
-
+#Test
