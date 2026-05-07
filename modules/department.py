@@ -96,7 +96,7 @@ class Department:
         # "DELETE FROM departments WHERE department_id = %s"
         conn = DBConnection.get_connection()
         cursor = conn.cursor()
-
+        
         try:
             query = "DELETE FROM departments WHERE department_id = %s"
             cursor.execute(query, (department_id,))

@@ -56,3 +56,6 @@ This setup promotes best practices: parameterized queries for security, proper r
 ---
 
 
+ALTER TABLE patients
+ADD UNIQUE INDEX phone_number_UNIQUE (phone_number ASC)VISIBLE;
+

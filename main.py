@@ -1,5 +1,6 @@
 from exceptions.custom_exceptions import HMSBaseExpection
 from modules.department import Department
+from modules.patient import Patient
 from rich.console import Console
 from tabulate import tabulate
 
@@ -49,18 +50,32 @@ def department_menu():
         elif dep_choice == "3":
             department_id = console.input("[bold yellow]department_id: ")
             item = safe_run(dept.get_by_id, department_id)
-            print(tabulate(item.items(), headers=["property name", "value name"], tablefmt="github"))
+            print(
+                tabulate(
+                    item.items(),
+                    headers=["property name", "value name"],
+                    tablefmt="github",
+                )
+            )
         elif dep_choice == "4":
+
             def _update():
                 dpt_id = console.input("[bold yellow]department_id: ")
                 dpt_name = console.input("[bold yellow]Enter Department name: ")
                 dpt_code = console.input("[bold yellow]Enter Department code: ")
-                dept.update(department_id=dpt_id, department_name=dpt_name, department_code=dpt_code)
+                dept.update(
+                    department_id=dpt_id,
+                    department_name=dpt_name,
+                    department_code=dpt_code,
+                )
+
             safe_run(_update)
         elif dep_choice == "5":
+
             def _delete():
                 dpt_id = console.input("[bold yellow]department_id: ")
                 dept.delete(department_id=dpt_id)
+
             safe_run(_delete)
         elif dep_choice == "0":
             break
@@ -69,6 +84,7 @@ def department_menu():
 
 
 def patient_menu():
+    pat = Patient()
     while True:
         console.print("\n ---- Patient Management ----", style="bold blue")
         print("1. Add Patient")
@@ -83,15 +99,63 @@ def patient_menu():
         ).strip()
 
         if patient_choice == "1":
-            print("adding")
+            # patient_name, age,gender, phone_number,address
+            def _add():
+                patient_name = console.input("[bold yellow]Enter Patient Name: ")
+                age = console.input("[bold yellow]Enter Patient Age: ")
+                gender = console.input("[bold yellow]Enter Patient Gender: ")
+                phone_number = console.input("[bold yellow]Enter Patient Phone No: ")
+                address = console.input("[bold yellow]Enter Patient Address: ")
+                patient_data = {
+                    "patient_name": patient_name,
+                    "age": age,
+                    "gender": gender,
+                    "phone_number": phone_number,
+                    "address": address,
+                }
+                pat.add(patient_data)
+            safe_run(_add)
         elif patient_choice == "2":
-            print("view all")
+            rows = safe_run(pat.get_all)
+            print(tabulate(rows, headers="keys", tablefmt="github"))
+
         elif patient_choice == "3":
-            print("Get dep by id")
+            patient_id = console.input("[bold yellow]patient_id: ")
+            item = safe_run(pat.get_by_id, patient_id)
+            print(
+                tabulate(
+                    item.items(),
+                    headers=["property name", "value name"],
+                    tablefmt="github",
+                )
+            )
+
         elif patient_choice == "4":
-            print("update patient")
+            def _update():
+                patient_id = console.input("[bold yellow]Enter Patient ID: ")
+                patient_name = console.input("[bold yellow]Enter Patient Name: ")
+                age = console.input("[bold yellow]Enter Patient Age: ")
+                gender = console.input("[bold yellow]Enter Patient Gender: ")
+                phone_number = console.input("[bold yellow]Enter Patient Phone No: ")
+                address = console.input("[bold yellow]Enter Patient Address: ")
+                patient_data = {
+                    "patient_id": patient_id,
+                    "patient_name": patient_name,
+                    "age": age,
+                    "gender": gender,
+                    "phone_number": phone_number,
+                    "address": address,
+                }
+                pat.update(patient_data)
+            safe_run(_update)
+            
+
         elif patient_choice == "5":
-            print("delete Patient")
+            def _delete():
+                pat_id = console.input("[bold yellow]patient_id: ")
+                pat.delete(patient_id=pat_id)
+
+            safe_run(_delete)
         elif patient_choice == "0":
             break
         else:
